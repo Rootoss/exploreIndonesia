@@ -1,50 +1,73 @@
-<script></script>
+<script setup> 
+import { planItems } from '@/data/plan';
+</script>
 
 <template>
   <section class="plan">
     <h2 class="visually-hidden">Наш план</h2>
     <p class="plan__description">Getting there</p>
+
     <ol class="plan__list">
-      <li class="plan__item">
-        <h3 class="plan__heading">Bookings your flights</h3>
-        <p class="plan__text plan__text--mobile">Lorem ipsum dolor set,,,,<br>
-          <a class="plan__link" href="#!">Show more</a>
+      <li
+        v-for="(item, index) in planItems"
+        :key="item.id || index"
+        :class="['plan__item', { 'plan__item--second': index === 1 }]"
+      >
+        <h3
+          :class="['plan__heading', { 'plan__heading--second': index === 1 }]"
+        >
+          {{ item.title }}
+        </h3>
+
+        <p
+          v-if="item.mobileText"
+          :class="[
+            'plan__text',
+            'plan__text--mobile',
+            { 'plan__text--second': index === 1 },
+          ]"
+        >
+          {{ item.mobileText }}<br />
+          <a class="plan__link" :href="item.link || '#!'">Show more</a>
         </p>
-        <p class="plan__text plan__text--desktop">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          dapibus mauris in lectus tempus, eget tincidunt lacus varius. Sed euismod orci dictum faucibus malesuada.
-          Praesent sed eros tincidunt, viverra neque auctor, lobortis enim.</p>
-      </li>
-      <li class="plan__item plan__item--second">
-        <h3 class="plan__heading plan__heading--second">Choosing your hotel</h3>
-        <p class="plan__text plan__text--mobile plan__text--second">Lorem ipsum dolor set,,,,<br>
-          <a class="plan__link" href="#!">Show more</a>
+
+        <p v-if="item.desktopText" class="plan__text plan__text--desktop">
+          {{ item.desktopText }}
         </p>
-        <p class="plan__text plan__text--desktop">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          dapibus mauris in lectus tempus, eget tincidunt lacus varius. Sed euismod orci dictum faucibus malesuada.
-          Praesent sed eros tincidunt, viverra neque auctor, lobortis enim.</p>
-        <div class="plan__preview-wrap preview">
-          <a href="#!">
-            <img src="/images/plan-preview-mobile.jpg" width="314" height="208" alt="Обложка видео.">
+
+        <div
+          v-if="item.preview && index === 1"
+          class="plan__preview-wrap preview"
+        >
+          <a :href="item.preview.link || '#!'">
+            <img
+              :src="item.preview.image"
+              :width="item.preview.width"
+              :height="item.preview.height"
+              :alt="item.preview.alt"
+            />
           </a>
           <div class="preview__subblock subblock">
-            <h4 class="subblock__heading">Travelling there</h4>
-            <p class="subblock__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus dapibus
-              mauris in lectus tempus, eget
-              tincidunt.</p>
+            <h4 class="subblock__heading">{{ item.preview.title }}</h4>
+            <p class="subblock__text">{{ item.preview.description }}</p>
           </div>
         </div>
-        <p class="plan__text plan__text--mobile plan__text--second">Lorem ipsum dolor set,,,,<br>
-          <a class="plan__link" href="#!">Show more</a>
+
+        <p
+          v-if="item.additionalMobileText && index === 1"
+          :class="['plan__text', 'plan__text--mobile', 'plan__text--second']"
+        >
+          {{ item.additionalMobileText }}<br />
+          <a class="plan__link" :href="item.link || '#!'">Show more</a>
         </p>
-      </li>
-      <li class="plan__item">
-        <h3 class="plan__heading">Planning your experiences</h3>
-        <p class="plan__text plan__text--mobile">Lorem ipsum dolor set,,,,<br>
-          <a class="plan__link" href="#!">Show more</a>
-        </p>
-        <p class="plan__text plan__text--desktop">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          dapibus mauris in lectus tempus, eget tincidunt lacus varius. </p>
-        <a class="button plan__button plan__button--desktop" href="#!">Learn More</a>
+
+        <a
+          v-if="item.buttonText && index === 2"
+          class="button plan__button plan__button--desktop"
+          :href="item.buttonLink || '#!'"
+        >
+          {{ item.buttonText }}
+        </a>
       </li>
     </ol>
   </section>

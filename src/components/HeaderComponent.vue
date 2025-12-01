@@ -1,22 +1,15 @@
-<script setup></script>
+<script setup>
+import { menuItems } from "@/data/data.js";
+</script>
 
 <template>
   <header class="header">
     <a class="header__logo" href="#!">
-      <img class="header__logo-img" src="/images/logo.svg" alt="Лого сайта.">
+      <img class="header__logo-img" src="/images/logo.svg" alt="Лого сайта." />
     </a>
     <ul class="header__menu">
-      <li class="header__item">
-        <a href="#!" class="header__link">Destinations</a>
-      </li>
-      <li class="header__item">
-        <a href="#!" class="header__link">Experiences</a>
-      </li>
-      <li class="header__item">
-        <a href="#!" class="header__link">About</a>
-      </li>
-      <li class="header__item">
-        <a href="#!" class="header__link">Gallery</a>
+      <li v-for="item in menuItems" :key="item.id" class="header__item">
+        <a class="header__link" :href="item.href" >{{ item.text }}</a>
       </li>
     </ul>
     <a class="header__search" href="#!">
@@ -86,7 +79,7 @@
   height: 20px;
   margin-top: 10px;
   margin-right: 36px;
-  background-image: url('../images/search.svg');
+  background-image: url("../images/search.svg");
 
   @media (min-width: 1920px) {
     margin-top: 15px;

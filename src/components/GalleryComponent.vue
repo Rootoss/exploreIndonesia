@@ -1,47 +1,36 @@
-<script></script>
+<script setup> 
+import { galleryImages } from "@/data/gallery.ts";
+</script>
 
 <template>
   <section class="gallery">
     <h2 class="gallery__heading">Photo Gallery</h2>
-    <p class="gallery__text">Lorem ipsum dolor sit amet, <br class="br-mobile">
-      consectetur adipiscing elit. Phasellus dapibus
-      mauris in lectus tempus, eget tincidunt.</p>
+    <p class="gallery__text">
+      Lorem ipsum dolor sit amet, <br class="br-mobile" />
+      consectetur adipiscing elit. Phasellus dapibus mauris in lectus tempus,
+      eget tincidunt.
+    </p>
 
     <div class="gallery__wrap">
-      <a class="gallery__img gallery__img--1" href="#!">
+      <a
+        v-for="(image, index) in galleryImages"
+        :key="index"
+        :class="`gallery__img gallery__img--${index + 1}`"
+        href="#!"
+      >
         <picture>
-          <source srcset="/images/gallery-image-desktop-1.jpg" media="(min-width: 1440px)" width="370" height="530">
-          <img src="/images/gallery-image-mobile-1.jpg" width="151" height="217" alt="Изображение природы.">
-        </picture>
-      </a>
-      <a class="gallery__img gallery__img--2" href="#!">
-        <picture>
-          <source srcset="/images/gallery-image-desktop-2.jpg" media="(min-width: 1440px)" width="370" height="210">
-          <img src="/images/gallery-image-mobile-2.jpg" width="151" height="86" alt="Изображение природы.">
-        </picture>
-      </a>
-      <a class="gallery__img gallery__img--3" href="#!">
-        <picture>
-          <source srcset="/images/gallery-image-desktop-3.jpg" media="(min-width: 1440px)" width="370" height="210">
-          <img src="/images/gallery-image-mobile-3.jpg" width="150" height="153" alt="Изображение природы.">
-        </picture>
-      </a>
-      <a class="gallery__img gallery__img--4" href="#!">
-        <picture>
-          <source srcset="/images/gallery-image-desktop-4.jpg" media="(min-width: 1440px)" width="370" height="530">
-          <img src="/images/gallery-image-mobile-4.jpg" width="151" height="86" alt="Изображение природы.">
-        </picture>
-      </a>
-      <a class="gallery__img gallery__img--5" href="#!">
-        <picture>
-          <source srcset="/images/gallery-image-desktop-5.jpg" media="(min-width: 1440px)" width="370" height="370">
-          <img src="/images/gallery-image-mobile-5.jpg" width="151" height="217" alt="Изображение природы.">
-        </picture>
-      </a>
-      <a class="gallery__img gallery__img--6" a href="#!">
-        <picture>
-          <source srcset="/images/gallery-image-desktop-6.jpg" media="(min-width: 1440px)" width="370" height="370">
-          <img src="/images/gallery-image-mobile-6.jpg" width="150" height="153" alt="Изображение природы.">
+          <source
+            :srcset="image.desktopSrc"
+            media="(min-width: 1440px)"
+            :width="image.desktopWidth"
+            :height="image.desktopHeight"
+          />
+          <img
+            :src="image.mobileSrc"
+            :width="image.mobileWidth"
+            :height="image.mobileHeight"
+            :alt="image.alt"
+          />
         </picture>
       </a>
     </div>
@@ -132,7 +121,6 @@
   }
 
   @media (min-width: 1440px) {
-
     &--1,
     &--2,
     &--3,
@@ -140,7 +128,7 @@
     &--5,
     &--6 {
       grid-column: auto;
-      grid-row: auto
+      grid-row: auto;
     }
 
     &--3 {

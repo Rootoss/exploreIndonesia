@@ -1,33 +1,42 @@
-<script></script>
+<script setup lang="ts">
+import { featuresItems } from "../data/features.ts";
+</script>
 
 <template>
   <section class="features">
     <h2 class="visually-hidden">Наши преимущества</h2>
     <ul class="features__list">
-      <li class="features__item">
+      <li v-for="item in featuresItems" :key="item.id" class="features__item">
         <picture>
-          <source srcset="/images/features-desktop-1.jpg" media="(min-width: 1440px)" width="630" height="460">
-          <img class="features__image" src="/images/features-mobile-1.jpg" width="314" height="232">
+          <source
+            :srcset="item.imageDesktop"
+            media="(min-width: 1440px)"
+            width="630"
+            height="460"
+          />
+          <img
+            class="features__image"
+            :class="{ 'features__image--second': item.isSecond }"
+            :src="item.imageMobile"
+            width="314"
+            :height="item.isSecond ? 224 : 232"
+          />
         </picture>
-        <div class="features__item-wrap">
-          <h3 class="features__title">The walkways of Indonesia spellbind</h3>
-          <p class="features__text">Lorem ipsum dolor sit amet, conse<br class="br-mobile">ctetur adip iscing elit.
-            Fusce commodo magna et libero mollis rhoncus. </p>
-          <a class="features__button button" href="#!">Learn More</a>
-        </div>
-      </li>
-      <li class="features__item">
-        <picture>
-          <source srcset="/images/features-desktop-2.jpg" media="(min-width: 1440px)" width="630" height="460">
-          <img class="features__image features__image--second" src="/images/features-mobile-2.jpg" width="314"
-            height="224">
-        </picture>
-        <div class="features__item-wrap features__item-wrap--second">
-          <h3 class="features__title features__title--second">Perfect beaches exude relaxation and fun</h3>
-          <p class="features__text features__text--second">Lorem ipsum dolor sit amet, conse<br class="br-mobile">ctetur
-            adip iscing
-            elit.
-            Fusce commodo magna et libero mollis rhoncus. </p>
+        <div
+          class="features__item-wrap"
+          :class="{ 'features__item-wrap--second': item.isSecond }"
+        >
+          <h3
+            class="features__title"
+            :class="{ 'features__title--second': item.isSecond }"
+          >
+            {{ item.title }}
+          </h3>
+          <p
+            class="features__text"
+            :class="{ 'features__text--second': item.isSecond }"
+            v-html="item.text"
+          ></p>
           <a class="features__button button" href="#!">Learn More</a>
         </div>
       </li>
@@ -38,11 +47,11 @@
 <style lang="scss">
 .features {
   padding: 40px 30px 48px;
-  background-image: url('../images/features-bg-mobile.jpg');
+  background-image: url("../images/features-bg-mobile.jpg");
 
   @media (min-width: 1440px) {
     padding: 207px 246px 267px 200px;
-    background-image: url('../images/features-bg-desktop.jpg');
+    background-image: url("../images/features-bg-desktop.jpg");
   }
 
   @media (min-width: 1920px) {
@@ -109,7 +118,7 @@
   @media (min-width: 1920px) {
     width: auto;
     font-size: 42px;
-    line-height: 49px
+    line-height: 49px;
   }
 }
 

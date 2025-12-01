@@ -1,34 +1,44 @@
-<script></script>
+<script setup> 
+import { navItems, socialItems } from '@/data/footer';
+</script>
 
 <template>
   <footer class="footer">
     <a class="footer__arrow" href="#!">
       <span class="visually-hidden">Прокрутить в самое начало.</span>
     </a>
+    
     <a class="footer__logo" href="#!">
       <img src="/images/footer-logo-mobile.svg" width="174" height="66" alt="Наш логотип.">
     </a>
+    
     <ul class="footer__list">
-      <li class="footer__item"><a class="footer__link" href="#!">About</a></li>
-      <li class="footer__item"><a class="footer__link" href="#!">Pricing</a></li>
-      <li class="footer__item"><a class="footer__link" href="#!">Company</a></li>
-      <li class="footer__item"><a class="footer__link" href="#!">Blog</a></li>
+      <li 
+        v-for="(item, index) in navItems" 
+        :key="index" 
+        class="footer__item"
+      >
+        <a class="footer__link" :href="item.href">{{ item.text }}</a>
+      </li>
     </ul>
+    
     <ul class="footer__social-list">
-      <li class="footer__social-item">
-        <a class="footer__social-link footer__social-link--facebook" href="#!"><span
-            class="visually-hidden">Facebook.</span></a>
-      </li>
-      <li class="footer__social-item">
-        <a class="footer__social-link footer__social-link--linkedin" href="#!"><span
-            class="visually-hidden">Instagram.</span></a>
-      </li>
-      <li class="footer__social-item">
-        <a class="footer__social-link footer__social-link--google" href="#!"><span
-            class="visually-hidden">Google+.</span></a>
+      <li 
+        v-for="(social, index) in socialItems" 
+        :key="index" 
+        class="footer__social-item"
+      >
+        <a 
+          class="footer__social-link" 
+          :class="`footer__social-link--${social.icon}`" 
+          :href="social.href"
+        >
+          <span class="visually-hidden">{{ social.name }}</span>
+        </a>
       </li>
     </ul>
-    <p class="footer__copyright">Copyright © 2019</p>
+    
+    <p class="footer__copyright">{{ copyrightText }}</p>
   </footer>
 </template>
 

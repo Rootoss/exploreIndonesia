@@ -1,4 +1,6 @@
-<script></script>
+<script lang="ts" setup>
+import { promoItems } from "@/data/data.ts";
+</script>
 
 <template>
   <section class="promo">
@@ -15,17 +17,9 @@
     </div>
     <div class="promo__wrap">
       <ol class="promo__list">
-        <li class="promo__item">
-          <h3 class="promo__title">Title here</h3>
-          <p class="promo__text">Lorem ipsum dolor sit amet et amet ist ame.</p>
-        </li>
-        <li class="promo__item">
-          <h3 class="promo__title">Title here</h3>
-          <p class="promo__text">Lorem ipsum dolor sit amet et amet ist ame.</p>
-        </li>
-        <li class="promo__item">
-          <h3 class="promo__title">Title here</h3>
-          <p class="promo__text">Lorem ipsum dolor sit amet et amet ist ame.</p>
+        <li class="promo__item" v-for="item in promoItems" :key="item.id">
+          <h3 class="promo__title">{{ item.promoTitle }}</h3>
+          <p class="promo__text">{{ item.promoText }}</p>
         </li>
       </ol>
       <a class="promo__video" href="#!">

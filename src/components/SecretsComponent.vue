@@ -1,26 +1,33 @@
-<script></script>
+<script setup>
+import { statsData } from "@/data/stats.ts";
+import { slides } from  "@/data/slides";
+const data = statsData;
+</script>
 
 <template>
   <section class="secrets">
     <h2 class="secrets__heading">Explore Our Secrets</h2>
     <div class="secrets__slider-wrap">
       <ul class="secrets__slider slider">
-        <li class="slider__item">
+        <li
+          v-for="(slide, index) in slides"
+          :key="index"
+          :class="['slider__item', { 'slider__item--desktop': index > 0 }]"
+        >
           <picture>
-            <source srcset="/images/slide-desktop-1.jpg" media="(min-width: 1920px)" width="405" height="257">
-            <img class="slider__image" src="/images/slide-mobile-1.jpg" width="314" height="200" alt="Слайд первый.">
-          </picture>
-        </li>
-        <li class="slider__item slider__item--desktop">
-          <picture>
-            <source srcset="/images/slide-desktop-2.jpg" media="(min-width: 1920px)" width="405" height="257">
-            <img class="slider__image" src="/images/slide-mobile-1.jpg" width="314" height="200" alt="Слайд первый.">
-          </picture>
-        </li>
-        <li class="slider__item slider__item--desktop">
-          <picture>
-            <source srcset="/images/slide-desktop-1.jpg" media="(min-width: 1920px)" width="405" height="257">
-            <img class="slider__image" src="/images/slide-mobile-1.jpg" width="314" height="200" alt="Слайд первый.">
+            <source
+              :srcset="slide.desktopImage"
+              media="(min-width: 1920px)"
+              width="405"
+              height="257"
+            />
+            <img
+              class="slider__image"
+              :src="slide.mobileImage"
+              width="314"
+              height="200"
+              :alt="slide.alt"
+            />
           </picture>
         </li>
       </ul>
@@ -47,27 +54,14 @@
       <button class="slider__next">
         <span class="visually-hidden">Следующий слайд.</span>
       </button>
-
     </div>
     <div class="secrets__stats stats">
-      <h3 class="stats__heading">By The Numbers</h3>
-      <p class="stats__text">Lorem ipsum dolor sit amet, <br class="br-mobile"> consectetur adipiscing elit.
-        Fusce <br class="br-mobile"> commodo magna et libero.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit.</p>
+      <h3 class="stats__heading">{{ data.heading }}</h3>
+      <p class="stats__text" v-html="data.text"></p>
       <ul class="stats__list">
-        <li class="stats__item">
-          <span class="stats__number">100+</span>
-          <p class="stats__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo magna et
-            libero.</p>
-        </li>
-        <li class="stats__item">
-          <span class="stats__number">43,000+</span>
-          <p class="stats__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo.</p>
-        </li>
-        <li class="stats__item">
-          <span class="stats__number">30+</span>
-          <p class="stats__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo magna et
-            libero.</p>
+        <li v-for="item in data.items" :key="item.id" class="stats__item">
+          <span class="stats__number">{{ item.number }}</span>
+          <p class="stats__description">{{ item.description }}</p>
         </li>
       </ul>
     </div>
@@ -143,14 +137,14 @@
   height: 20px;
   border: none;
   background: none;
-  background-image: url('../images/arrow-left-mobile.svg');
+  background-image: url("../images/arrow-left-mobile.svg");
   background-repeat: no-repeat;
   cursor: pointer;
 
   @media (min-width: 1440px) {
     width: 15px;
     height: 24px;
-    background-image: url('../images/arrow-left-desktop.svg');
+    background-image: url("../images/arrow-left-desktop.svg");
   }
 }
 
@@ -159,7 +153,6 @@
   left: 7px;
 
   @media (min-width: 1440px) {
-
     left: 140px;
   }
 

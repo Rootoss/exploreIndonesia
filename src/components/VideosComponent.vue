@@ -1,37 +1,58 @@
-<script></script>
+<script setup>
+import {mainVideo, videoList} from "@/data/video.ts";
+</script>
 
 <template>
   <section class="videos">
     <h2 class="visually-hidden">Наши видео.</h2>
-    <p class="videos__description">Live a life like you wouldn't imagine, experience a life you<br class="br-mobile">
-      wouldn't<br class="br-mobile"> expect.
+    <p class="videos__description">
+      Live a life like you wouldn't imagine, experience a life you
+      <br class="br-mobile"> wouldn't
+      <br class="br-mobile"> expect.
     </p>
+    
     <div class="videos__video">
       <a class="videos__img-link" href="#!">
         <picture>
-          <source srcset="/images/videos-video-1-desktop.jpg" media="(min-width: 1440px)" width="1056" height="594">
-          <img class="videos__picture" src="/images/videos-video-1-mobile.jpg" width="314" height="192"
-            alt="Обложка видео.">
+          <source 
+            :srcset="mainVideo.desktopImage" 
+            media="(min-width: 1440px)" 
+            :width="mainVideo.desktopWidth" 
+            :height="mainVideo.desktopHeight"
+          >
+          <img 
+            class="videos__picture" 
+            :src="mainVideo.mobileImage" 
+            :width="mainVideo.mobileWidth" 
+            :height="mainVideo.mobileHeight" 
+            :alt="mainVideo.alt"
+          >
         </picture>
       </a>
     </div>
+    
     <ul class="videos__list">
-      <li class="videos__item">
-        <img class="videos__image" src="/images/videos-item-1-mobile.jpg" width="314" height="176" alt="Обложка видео.">
+      <li 
+        v-for="(video, index) in videoList" 
+        :key="index" 
+        class="videos__item"
+      >
+        <img 
+          class="videos__image" 
+          :class="{'videos__image--second': index === 1}" 
+          :src="video.image" 
+          :width="video.width" 
+          :height="video.height" 
+          :alt="video.alt"
+        >
         <div class="videos__item-wrap">
-          <h3 class="videos__heading">In The Country</h3>
-          <p class="videos__text">Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Phasellus dapibus mauris in
-            lectus tempus.</p>
-        </div>
-      </li>
-      <li class="videos__item">
-        <img class="videos__image videos__image--second" src="/images/videos-item-2-mobile.jpg" width="314" height="176"
-          alt="Обложка видео.">
-        <div class="videos__item-wrap">
-          <h3 class="videos__heading videos__heading--second">In The City</h3>
-          <p class="videos__text">Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Phasellus dapibus mauris in.</p>
+          <h3 
+            class="videos__heading" 
+            :class="{'videos__heading--second': index === 1}"
+          >
+            {{ video.title }}
+          </h3>
+          <p class="videos__text">{{ video.description }}</p>
         </div>
       </li>
     </ul>
